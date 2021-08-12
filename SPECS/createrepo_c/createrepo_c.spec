@@ -1,7 +1,7 @@
 Summary:        Creates a common metadata repository
 Name:           createrepo_c
 Version:        0.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+
 Group:          System Environment/Base
 Vendor:         VMware, Inc.
@@ -80,6 +80,8 @@ ln -sf %{_bindir}/modifyrepo_c %{buildroot}%{_bindir}/modifyrepo
 %{_lib64dir}/pkgconfig/%{name}.pc
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 0.16.0-2
+-   Bump up release for openssl
 *   Mon Jun 22 2020 Gerrit Photon <photon-checkins@vmware.com> 0.16.0-1
 -   Automatic Version Bump
 *   Wed Jun 19 2019 Ankit Jain <ankitja@vmware.com> 0.11.1-2

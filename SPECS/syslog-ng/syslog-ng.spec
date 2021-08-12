@@ -2,7 +2,7 @@
 Summary:        Next generation system logger facilty
 Name:           syslog-ng
 Version:        3.29.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPL + LGPL
 URL:            https://syslog-ng.org/
 Group:          System Environment/Daemons
@@ -163,6 +163,8 @@ rm -rf %{buildroot}/*
 %{_libdir}/pkgconfig/*
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 3.29.1-4
+-   Bump up release for openssl
 *   Fri Oct 16 2020 Shreenidhi Shedi <sshedi@vmware.com> 3.29.1-3
 -   Fix GCC path issue
 *   Wed Sep 09 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 3.29.1-2

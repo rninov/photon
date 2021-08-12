@@ -1,7 +1,7 @@
 Summary:        A network utility to retrieve files from the Web
 Name:           wget
 Version:        1.20.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv3+
 URL:            http://www.gnu.org/software/wget/wget.html
 Group:          System Environment/NetworkingPrograms
@@ -21,13 +21,10 @@ downloading of files from the Web.
 %prep
 %setup -q
 %build
-./configure \
+%configure \
     CFLAGS="%{optflags}" \
     CXXFLAGS="%{optflags}" \
     --disable-silent-rules \
-    --prefix=%{_prefix} \
-    --bindir=%{_bindir} \
-    --libdir=%{_libdir} \
     --sysconfdir=/etc \
     --with-ssl=openssl
 make %{?_smp_mflags}
@@ -55,6 +52,8 @@ rm -rf %{buildroot}/*
 %{_bindir}/*
 %{_mandir}/man1/*
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.20.3-3
+-   Bump up release for openssl
 *   Tue Sep 29 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.20.3-2
 -   openssl 1.1.1
 *   Mon Jul 27 2020 Gerrit Photon <photon-checkins@vmware.com> 1.20.3-1

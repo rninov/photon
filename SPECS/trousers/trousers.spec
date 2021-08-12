@@ -1,7 +1,7 @@
 Summary:    TCG Software Stack (TSS)
 Name:       trousers
 Version:    0.3.14
-Release:    4%{?dist}
+Release:    5%{?dist}
 License:    BSD
 URL:        https://sourceforge.net/projects/trousers/
 Group:      System Environment/Security
@@ -94,6 +94,8 @@ fi
 %exclude %{_libdir}/libtddl.a
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 0.3.14-5
+-   Bump up release for openssl
 *   Thu Jan 14 2021 Alexey Makhalov <amakhalov@vmware.com> 0.3.14-4
 -   GCC-10 support.
 *   Wed Aug 19 2020 Shreyas B <shreyasb@vmware.com> 0.3.14-3

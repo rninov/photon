@@ -1,7 +1,7 @@
 Name:          c-rest-engine
 Summary:       minimal http(s) server library
 Version:       1.2
-Release:       7%{?dist}
+Release:       8%{?dist}
 Group:         Applications/System
 Vendor:        VMware, Inc.
 Distribution:  Photon
@@ -73,6 +73,8 @@ find %{buildroot} -name '*.la' -delete
 # %doc ChangeLog README COPYING
 
 %changelog
+*  Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.2-8
+-  Bump up release for openssl
 *  Thu Jan 14 2021 Alexey Makhalov <amakhalov@vmware.com> 1.2-7
 -  GCC-10 support.
 *  Wed Nov 18 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.2-6

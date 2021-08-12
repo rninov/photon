@@ -1,7 +1,7 @@
 Summary:          Commonly used Mail transport agent (MTA)
 Name:             sendmail
 Version:          8.16.1
-Release:          2%{?dist}
+Release:          3%{?dist}
 URL:              http://www.sendmail.org/
 License:          BSD and CDDL1.1 and MIT
 Group:            Email/Server/Library
@@ -9,6 +9,7 @@ Vendor:           VMware, Inc.
 Distribution:     Photon
 Source0:          http://ftp.vim.org/pub/mail/sendmail/sendmail-r8/sendmail.%{version}.tar.gz
 %define sha1      sendmail.%{version}=748b6dfc47dfbb83ebfdd2e334c87032c4698eab
+Patch0:           0001-sendmail-fix-compatibility-with-openssl-3.0.patch
 BuildRequires:	  systemd
 BuildRequires:    openldap
 BuildRequires:    openssl-devel
@@ -31,6 +32,7 @@ of email from systems to network and is not just a mail client.
 
 %prep
 %setup
+%patch0 -p1
 
 %build
 cat >> devtools/Site/site.config.m4 << "EOF"
@@ -192,6 +194,8 @@ fi
 %exclude %{_sysconfdir}/mail/cf/*
 
 %changelog
+*   Wed Apr 14 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 8.16.1-3
+-   openssl 3.0.0 compatibility
 *   Tue Sep 29 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 8.16.1-2
 -   openssl 1.1.1
 *   Wed Jul 29 2020 Gerrit Photon <photon-checkins@vmware.com> 8.16.1-1

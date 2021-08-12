@@ -1,7 +1,7 @@
 Summary:        Packet Analyzer
 Name:           tcpdump
 Version:        4.9.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        BSD
 URL:            http://www.tcpdump.org
 Source0:        http://www.tcpdump.org/release/%{name}-%{version}.tar.gz
@@ -42,6 +42,8 @@ make %{?_smp_mflags} check
 %{_mandir}/man1/*
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 4.9.3-4
+-   Bump up release for openssl
 *   Sun Nov 15 2020 Prashant S Chauhan <psinghchauha@vmware.com> 4.9.3-3
 -   Added patch, fixes CVE-2020-8037
 *   Wed Sep 30 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 4.9.3-2

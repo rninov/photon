@@ -1,6 +1,6 @@
 Summary:        Git for operating system binaries
 Name:           ostree
-Version:        2020.6
+Version:        2021.2
 Release:        1%{?dist}
 License:        LGPLv2+
 URL:            https://ostree.readthedocs.io/en/latest
@@ -10,10 +10,10 @@ Distribution:   Photon
 # Manually created Source tar which is equal to
 # Source0 + .git as it requires git hooks at build time
 Source0:        https://github.com/ostreedev/ostree/archive/%{name}-%{version}.tar.gz
-%define sha1    %{name}-%{version}=64d0a49d299342877ed5744e3e80133e7962bb31
+%define sha1    %{name}-%{version}=92796e35050d7ecf6befa551c46656eb79bf75f4
 Source1:        91-ostree.preset
 Patch0:         dualboot-support.patch
-Patch1:         0001-ostree-Copying-photon-config-to-boot-directory.patch
+#Patch1:         0001-ostree-Copying-photon-config-to-boot-directory.patch
 Patch2:         0002-ostree-Adding-load-env-to-menuentry.patch
 
 BuildRequires:  git
@@ -89,7 +89,7 @@ GRUB2 integration for OSTree
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
+#%patch1 -p1
 %patch2 -p1
 
 %build
@@ -162,6 +162,8 @@ install -vdm 755 %{buildroot}/etc/ostree/remotes.d
 %{_libexecdir}/libostree/grub2*
 
 %changelog
+*   Fri Jul 09 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 2021.2-1
+-   Updated to 2020.7
 *   Thu Sep 03 2020 Ankit Jain <ankitja@vmware.com> 2020.6-1
 -   Updated to 2020.6
 *   Thu Aug 13 2020 Ankit Jain <ankitja@vmware.com> 2020.4-1

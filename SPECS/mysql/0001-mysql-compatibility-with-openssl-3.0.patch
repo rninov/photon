@@ -1,0 +1,205 @@
+From 9fc3b21cfb5f9426a306bd2862f67183297847d4 Mon Sep 17 00:00:00 2001
+From: Satya Naga Rajesh Vasamsetty <svasamsetty@vmware.com>
+Date: Thu, 26 Nov 2020 18:49:42 +0530
+Subject: [PATCH] mysql: fix openssl 3.0 compatibility issue
+
+
+diff --git a/cmake/ssl.cmake b/cmake/ssl.cmake
+index 52feade..d37cbf0 100644
+--- a/cmake/ssl.cmake
++++ b/cmake/ssl.cmake
+@@ -227,8 +227,7 @@ MACRO (MYSQL_CHECK_SSL)
+     ENDIF()
+     IF(OPENSSL_INCLUDE_DIR AND
+        OPENSSL_LIBRARY   AND
+-       CRYPTO_LIBRARY      AND
+-       OPENSSL_MAJOR_VERSION STREQUAL "1"
++       CRYPTO_LIBRARY
+       )
+       SET(OPENSSL_FOUND TRUE)
+       FIND_PROGRAM(OPENSSL_EXECUTABLE openssl
+diff --git a/mysys/my_md5.cc b/mysys/my_md5.cc
+index dea997b..c507881 100644
+--- a/mysys/my_md5.cc
++++ b/mysys/my_md5.cc
+@@ -34,6 +34,7 @@
+ 
+ #include <openssl/crypto.h>
+ #include <openssl/md5.h>
++#include <openssl/evp.h>
+ 
+ static void my_md5_hash(unsigned char *digest, unsigned const char *buf,
+                         int len) {
+@@ -56,7 +57,15 @@ static void my_md5_hash(unsigned char *digest, unsigned const char *buf,
+ int compute_md5_hash(char *digest, const char *buf, int len) {
+   int retval = 0;
+   int fips_mode = 0;
+-  fips_mode = FIPS_mode();
++  OSSL_LIB_CTX *ctx = NULL;
++
++  ctx = OSSL_LIB_CTX_new();
++
++  if (!ctx) {
++    retval = 1;
++    goto err;
++  }
++  fips_mode = EVP_default_properties_is_fips_enabled(ctx);
+   /* If fips mode is ON/STRICT restricted method calls will result into abort,
+    * skipping call. */
+   if (fips_mode == 0) {
+@@ -64,5 +73,7 @@ int compute_md5_hash(char *digest, const char *buf, int len) {
+   } else {
+     retval = 1;
+   }
++err:
++  OSSL_LIB_CTX_free(ctx);
+   return retval;
+ }
+diff --git a/plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/xcom_ssl_transport.cc b/plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/xcom_ssl_transport.cc
+index 8bf63ce..8527d45 100644
+--- a/plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/xcom_ssl_transport.cc
++++ b/plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/xcom_ssl_transport.cc
+@@ -331,21 +331,31 @@ static int configure_ssl_fips_mode(const uint fips_mode) {
+   unsigned int fips_mode_old = -1;
+   char err_string[OPENSSL_ERROR_LENGTH] = {'\0'};
+   unsigned long err_library = 0;
++  OSSL_LIB_CTX *ctx = NULL;
++
++  ctx = OSSL_LIB_CTX_new();
++
++  if (!ctx) {
++    rc = 1;
++    goto EXIT;
++  }
++
+   if (fips_mode > 2) {
+     goto EXIT;
+   }
+-  fips_mode_old = FIPS_mode();
++  fips_mode_old = EVP_default_properties_is_fips_enabled(ctx);
+   if (fips_mode_old == fips_mode) {
+     rc = 1;
+     goto EXIT;
+   }
+-  if (!(rc = FIPS_mode_set(fips_mode))) {
++  if (!(rc = EVP_default_properties_enable_fips(ctx, fips_mode))) {
+     err_library = ERR_get_error();
+     ERR_error_string_n(err_library, err_string, sizeof(err_string) - 1);
+     err_string[sizeof(err_string) - 1] = '\0';
+     G_ERROR("openssl fips mode set failed: %s", err_string);
+   }
+ EXIT:
++  OSSL_LIB_CTX_free(ctx);
+   return rc;
+ }
+ 
+diff --git a/plugin/x/client/xconnection_impl.cc b/plugin/x/client/xconnection_impl.cc
+index 13bc679..d02046c 100644
+--- a/plugin/x/client/xconnection_impl.cc
++++ b/plugin/x/client/xconnection_impl.cc
+@@ -521,20 +521,30 @@ int set_fips_mode(const uint32_t fips_mode,
+   int rc = -1;
+   unsigned int fips_mode_old = -1;
+   unsigned long err_library = 0;
++  OSSL_LIB_CTX *ctx = NULL;
++
++  ctx = OSSL_LIB_CTX_new();
++
++  if (!ctx) {
++    rc = 1;
++    goto EXIT;
++  }
++
+   if (fips_mode > 2) {
+     goto EXIT;
+   }
+-  fips_mode_old = FIPS_mode();
++  fips_mode_old = EVP_default_properties_is_fips_enabled(ctx);
+   if (fips_mode_old == fips_mode) {
+     rc = 1;
+     goto EXIT;
+   }
+-  if (!(rc = FIPS_mode_set(fips_mode))) {
++  if (!(rc = EVP_default_properties_enable_fips(ctx, fips_mode))) {
+     err_library = ERR_get_error();
+     ERR_error_string_n(err_library, err_string, OPENSSL_ERROR_LENGTH - 1);
+     err_string[OPENSSL_ERROR_LENGTH - 1] = '\0';
+   }
+ EXIT:
++  OSSL_LIB_CTX_free(ctx);
+   return rc;
+ }
+ 
+diff --git a/vio/viosslfactories.cc b/vio/viosslfactories.cc
+index 6c04029..b6a7530 100644
+--- a/vio/viosslfactories.cc
++++ b/vio/viosslfactories.cc
+@@ -495,15 +495,25 @@ int set_fips_mode(const uint fips_mode, char err_string[OPENSSL_ERROR_LENGTH]) {
+   int rc = -1;
+   unsigned int fips_mode_old = -1;
+   unsigned long err_library = 0;
++
++  OSSL_LIB_CTX *ctx = NULL;
++
++  ctx = OSSL_LIB_CTX_new();
++
++  if (!ctx) {
++    rc = 1;
++    goto EXIT;
++  }
++
+   if (fips_mode > 2) {
+     goto EXIT;
+   }
+-  fips_mode_old = FIPS_mode();
++  fips_mode_old = EVP_default_properties_is_fips_enabled(ctx);
+   if (fips_mode_old == fips_mode) {
+     rc = 1;
+     goto EXIT;
+   }
+-  if (!(rc = FIPS_mode_set(fips_mode))) {
++  if (!(rc = EVP_default_properties_enable_fips(ctx, fips_mode))) {
+     /*
+       If OS doesn't have FIPS enabled openssl library and user sets FIPS mode
+       ON, It fails with proper error. But in the same time it doesn't allow to
+@@ -511,12 +521,13 @@ int set_fips_mode(const uint fips_mode, char err_string[OPENSSL_ERROR_LENGTH]) {
+       error, setting old working FIPS mode value in the OpenSSL library. It will
+       allow successful cryptographic operation and will not abort the server.
+     */
+-    FIPS_mode_set(fips_mode_old);
++    EVP_default_properties_enable_fips(ctx, fips_mode_old);
+     err_library = ERR_get_error();
+     ERR_error_string_n(err_library, err_string, OPENSSL_ERROR_LENGTH - 1);
+     err_string[OPENSSL_ERROR_LENGTH - 1] = '\0';
+   }
+ EXIT:
++  OSSL_LIB_CTX_free(ctx);
+   return rc;
+ }
+ 
+@@ -525,7 +536,22 @@ EXIT:
+ 
+   @returns openssl current fips mode
+ */
+-uint get_fips_mode() { return FIPS_mode(); }
++uint get_fips_mode() {
++  unsigned int fips_mode = -1;
++  OSSL_LIB_CTX *ctx = NULL;
++
++  ctx = OSSL_LIB_CTX_new();
++
++  if (!ctx) {
++    goto EXIT;
++  }
++
++  fips_mode = EVP_default_properties_is_fips_enabled(ctx);
++
++EXIT:
++  OSSL_LIB_CTX_free(ctx);
++  return fips_mode;
++}
+ 
+ long process_tls_version(const char *tls_version) {
+   const char *separator = ",";
+-- 
+2.7.4

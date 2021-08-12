@@ -1,7 +1,7 @@
 Summary:        PAM Tacacs+ module
 Name:           pam_tacplus
 Version:        1.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL
 URL:            http://tacplus.sourceforge.net/
 Group:          System
@@ -69,6 +69,8 @@ rm -rf %{buildroot}/*
 %doc %{_docdir}/*
 
 %changelog
+* Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.6.1-2
+- Bump up release for openssl
 * Thu Nov 05 2020 Shreenidhi Shedi <sshedi@vmware.com> 1.6.1-1
 - Bump version to 1.6.1, fixes CVE-2020-27743
 * Sat Aug 29 2020 Shreenidhi Shedi <sshedi@vmware.com> 1.5.1-2

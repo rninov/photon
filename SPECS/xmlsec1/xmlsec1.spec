@@ -1,7 +1,7 @@
 Summary:        Library providing support for "XML Signature" and "XML Encryption" standards
 Name:           xmlsec1
 Version:        1.2.30
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        MIT
 Group:          Applications/System
 Vendor:         VMware, Inc.
@@ -86,6 +86,8 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_prefix}/share/man/man1/xmlsec1-config.1.gz
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.2.30-4
+-   Bump up release for openssl
 *   Wed Oct 28 2020 Siju Maliakkal <smaliakkal@vmware.com> 1.2.30-3
 -   Added xslt support
 *   Tue Sep 29 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.2.30-2

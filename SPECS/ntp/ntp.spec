@@ -1,7 +1,7 @@
 Summary:        Network Time Protocol reference implementation
 Name:           ntp
 Version:        4.2.8p15
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        NTP
 URL:            http://www.ntp.org/
 Group:          System Environment/NetworkingPrograms
@@ -176,6 +176,8 @@ rm -rf %{buildroot}/*
 %{_mandir}/man8/ntpstat.8*
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 4.2.8p15-3
+-   Bump up release for openssl
 *   Tue Sep 29 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 4.2.8p15-2
 -   openssl 1.1.1
 *   Tue Jul 14 2020 Gerrit Photon <photon-checkins@vmware.com> 4.2.8p15-1

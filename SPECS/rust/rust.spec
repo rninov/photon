@@ -1,7 +1,7 @@
 Summary:        Rust Programming Language
 Name:           rust
 Version:        1.51.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        Apache License Version 2.0 and MIT
 URL:            https://github.com/rust-lang/rust
 Group:          Applications/System
@@ -17,6 +17,7 @@ Patch2:         0001-Turn-may_have_side_effect-into-an-associated-constan.patch
 Patch3:         CVE-2021-28879.patch
 Patch4:         CVE-2021-28878.patch
 Patch5:         CVE-2020-36323.patch
+Patch6:         0001-openssl-3.0.0-support.patch
 BuildRequires:  git
 BuildRequires:  cmake
 BuildRequires:  glibc
@@ -36,6 +37,7 @@ Rust Programming Language
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 sh ./configure --prefix=%{_prefix} --enable-extended --tools="cargo"
@@ -75,6 +77,8 @@ rm %{buildroot}%{_docdir}/%{name}/*.old
 %{_sysconfdir}/bash_completion.d/cargo
 
 %changelog
+*   Fri Jun 18 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.51.0-4
+-   openssl 3.0.0 compatibility
 *   Tue May 04 2021 Ankit Jain <ankitja@vmware.com> 1.51.0-3
 -   Fixes CVE-2020-36323
 *   Wed Apr 28 2021 Ankit Jain <ankitja@vmware.com> 1.51.0-2

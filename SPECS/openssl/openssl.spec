@@ -1,14 +1,14 @@
 Summary:        Management tools and libraries relating to cryptography
 Name:           openssl
-Version:        1.1.1k
-Release:        2%{?dist}
+Version:        3.0.0
+Release:        beta2.1%{?dist}
 License:        OpenSSL
 URL:            http://www.openssl.org
 Group:          System Environment/Security
 Vendor:         VMware, Inc.
 Distribution:   Photon
-Source0:        http://www.openssl.org/source/openssl-1.1.1k.tar.gz
-%define sha1    openssl=bad9dc4ae6dcc1855085463099b5dacb0ec6130b
+Source0:        http://www.openssl.org/source/openssl-3.0.0-beta2.tar.gz
+%define sha1    openssl=cdebcbc92e22fdcd689771d41bbd02d98af84d8b
 Source1:        rehash_ca_certificates.sh
 %if %{with_check}
 BuildRequires: zlib-devel
@@ -67,9 +67,13 @@ export MACHINE=%{_arch}
     --prefix=%{_prefix} \
     --libdir=%{_libdir} \
     --openssldir=/%{_sysconfdir}/ssl \
+    --api=1.1.1 \
     --shared \
     --with-rand-seed=os,egd \
     enable-egd \
+    enable-deprecated \
+    -Wno-deprecated \
+    -Wno-deprecated-declarations \
     -Wl,-z,noexecstack
 
 # does not support -j yet
@@ -79,10 +83,12 @@ make
 make DESTDIR=%{buildroot} MANDIR=/usr/share/man MANSUFFIX=ssl install
 install -p -m 755 -D %{SOURCE1} %{buildroot}%{_bindir}/
 
-ln -sf libssl.so.1.1 %{buildroot}%{_libdir}/libssl.so.1.1.0
-ln -sf libssl.so.1.1 %{buildroot}%{_libdir}/libssl.so.1.1.1
-ln -sf libcrypto.so.1.1 %{buildroot}%{_libdir}/libcrypto.so.1.1.0
-ln -sf libcrypto.so.1.1 %{buildroot}%{_libdir}/libcrypto.so.1.1.1
+ln -sf libssl.so.3 %{buildroot}%{_libdir}/libssl.so.1.1.0
+ln -sf libssl.so.3 %{buildroot}%{_libdir}/libssl.so.1.1.1
+ln -sf libssl.so.3 %{buildroot}%{_libdir}/libssl.so.1.1
+ln -sf libcrypto.so.3 %{buildroot}%{_libdir}/libcrypto.so.1.1.0
+ln -sf libcrypto.so.3 %{buildroot}%{_libdir}/libcrypto.so.1.1.1
+ln -sf libcrypto.so.3 %{buildroot}%{_libdir}/libcrypto.so.1.1
 
 %check
 make tests
@@ -103,6 +109,7 @@ rm -rf %{buildroot}/*
 %{_bindir}/openssl
 %{_libdir}/*.so.*
 %{_libdir}/engines*/*
+%{_libdir}/ossl-modules/legacy.so
 
 %files devel
 %{_includedir}/*
@@ -128,6 +135,8 @@ rm -rf %{buildroot}/*
 %{_mandir}/man7/*
 
 %changelog
+*   Mon Jul 12 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 3.0.0-beta2.1
+-   update to openssl 3.0.0-beta2
 *   Fri Jun 18 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.1.1k-2
 -   use openssl rehash functionality and remove unused patches
 *   Mon Mar 29 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.1.1k-1

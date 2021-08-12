@@ -1,7 +1,7 @@
 Summary:        Fast distributed version control system
 Name:           git
 Version:        2.30.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        GPLv2
 URL:            http://git-scm.com
 Group:          System Environment/Programming
@@ -101,6 +101,8 @@ rm -rf %{buildroot}/*
 %defattr(-,root,root)
 
 %changelog
+*   Sun Jul 25 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 2.30.0-5
+-   Compatibility for openssl 3.0.0
 *   Wed May 26 2021 Shreenidhi Shedi <sshedi@vmware.com> 2.30.0-4
 -   Bump version as a part of rpm upgrade
 *   Tue Mar 09 2021 Prashant S Chauhan <psinghchauha@vmware.com> 2.30.0-3

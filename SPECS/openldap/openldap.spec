@@ -4,7 +4,7 @@
 Summary:        OpenLdap
 Name:           openldap
 Version:        2.4.57
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        OpenLDAP
 URL:            http://cyrusimap.web.cmu.edu/
 Group:          System Environment/Security
@@ -115,6 +115,8 @@ rm -rf %{buildroot}/*
 %{_mandir}/man8/*
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 2.4.57-2
+-   Bump up release for openssl
 *   Wed Mar 31 2021 Vamsi Krishna Brahmajosyula<vbrahmajosyula@vmware.com> 2.4.57-1
 -   Upgrade to 2.4.57 to fix several critical CVEs
 -   Fix CVE-2021-27212

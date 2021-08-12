@@ -1,7 +1,7 @@
 Summary:        The Apache HTTP Server
 Name:           httpd
 Version:        2.4.47
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Apache License 2.0
 URL:            http://httpd.apache.org
 Group:          Applications/System
@@ -196,6 +196,8 @@ fi
 %{_bindir}/dbmmanage
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 2.4.47-2
+-   Bump up release for openssl
 *   Fri May 21 2021 Shreenidhi Shedi <sshedi@vmware.com> 2.4.47-1
 -   Bump to v2.4.47
 *   Tue Mar 23 2021 Piyush Gupta <gpiyush@vmware.com> 2.4.46-6

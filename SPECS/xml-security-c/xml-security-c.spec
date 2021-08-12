@@ -1,7 +1,7 @@
 Summary:	C++ XML Signature and Encryption library.
 Name:		xml-security-c
 Version:	2.0.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	Apache Software License
 URL:		http://santuario.apache.org/index.html
 Group:		Applications/System
@@ -10,6 +10,7 @@ Distribution:	Photon
 Source0:	http://apache.mirrors.lucidnetworks.net/santuario/c-library/%{name}-%{version}.tar.gz
 %define sha1 xml-security-c=281efe6701397036af420244be26815589cec982
 Patch0:		xml-security-c-fix-for-gcc-6.3.patch
+Patch1:         0001-openssl-3.0.0-support.patch
 Requires:	openssl
 Requires:	xerces-c
 BuildRequires:	openssl-devel
@@ -28,6 +29,7 @@ This package contains development headers and static library for xml security.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure --prefix=/usr
@@ -54,6 +56,8 @@ make DESTDIR=%{buildroot} install
 %{_includedir}/*
 
 %changelog
+*   Mon Apr 12 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 2.0.2-3
+-   openssl 3.0.0 compatibility
 *   Tue Sep 29 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 2.0.2-2
 -   openssl 1.1.1
 *   Wed Jun 10 2020 Gerrit Photon <photon-checkins@vmware.com> 2.0.2-1

@@ -1,7 +1,7 @@
 Summary:        Domain Name System software
 Name:           bindutils
 Version:        9.16.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        ISC
 URL:            http://www.isc.org/downloads/bind/
 Source0:        ftp://ftp.isc.org/isc/bind9/%{version}/bind-%{version}.tar.xz
@@ -73,6 +73,8 @@ fi
 %{_prefix}/lib/tmpfiles.d/named.conf
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 9.16.15-2
+-   Bump up release for openssl
 *   Tue Jun 01 2021 Sujay G <gsujay@vmware.com> 9.16.15-1
 -   Bump version to 9.16.15 to fix CVE-2021-25214, CVE-2021-25215, CVE-2021-25216, CVE-2020-8625
 *   Thu Oct 01 2020 Sujay G <gsujay@vmware.com> 9.16.6-1

@@ -1,7 +1,7 @@
 Summary:        Apache Tomcat Native
 Name:           apache-tomcat-native
 Version:        1.2.24
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        Apache 2.0
 URL:            https://tomcat.apache.org/native-doc/
 Group:          Applications/System
@@ -54,6 +54,8 @@ rm -rf %{buildroot}/*
 %exclude %{_libdir}/libtcnative-1.la
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.2.24-3
+-   Bump up release for openssl
 *   Thu Sep 10 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.2.24-2
 -   Openssl 1.1.1 compatibility
 *   Wed Jun 17 2020 Tapas Kundu <tkundu@vmware.com> 1.2.24-1

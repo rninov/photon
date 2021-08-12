@@ -1,7 +1,7 @@
 Summary:	Cmake
 Name:		cmake
 Version:	3.18.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	BSD and LGPLv2+
 URL:		http://www.cmake.org/
 Source0:	http://www.cmake.org/files/v3.16/%{name}-%{version}.tar.gz
@@ -62,6 +62,8 @@ make  %{?_smp_mflags} test
 %{_libdir}/rpm/macros.d/macros.cmake
 
 %changelog
+*       Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 3.18.3-4
+-       Bump up release for openssl
 *       Tue Dec 15 2020 Shreenidhi Shedi <sshedi@vmware.com> 3.18.3-3
 -       Fix build with new rpm
 *       Tue Sep 29 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 3.18.3-2

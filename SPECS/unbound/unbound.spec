@@ -1,7 +1,7 @@
 Summary:        unbound dns server
 Name:           unbound
 Version:        1.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Group:          System/Servers
 Vendor:         VMware, Inc.
 License:        BSD
@@ -16,6 +16,7 @@ BuildRequires:  expat-devel
 Requires(pre):  /usr/sbin/useradd /usr/sbin/groupadd
 
 Patch0:         patch_cve-2020-28935_unbound.diff
+Patch1:         unbound-openssl-3.0.0-compatibility.patch
 
 %description
 Unbound is a validating, recursive, and caching DNS resolver.
@@ -38,8 +39,10 @@ unbound dns server docs
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
+#export CFLAGS="-Wno-implicit-function-declaration"
 %configure \
     --with-conf-file=%{_sysconfdir}/%{name}/unbound.conf \
     --disable-static
@@ -83,6 +86,8 @@ rm -rf %{buildroot}/*
 %{_mandir}/*
 
 %changelog
+*  Fri Jul 30 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.12.0-2
+-  Fix openssl 3.0.0 beta2 compatibility with unbound
 *  Fri Jul 23 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.12.0-1
 -  Update to 1.12.0 for openssl 3.0 compatibility
 *  Tue Feb 02 2021 Shreyas B. <shryasb@vmware.com> 1.11.0-2

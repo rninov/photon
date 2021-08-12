@@ -1,7 +1,7 @@
 Summary:          Multipurpose relay (SOcket CAT)
 Name:             socat
 Version:          2.0.0.b9
-Release:          2%{?dist}
+Release:          3%{?dist}
 License:          GPL2
 URL:              http://www.dest-unreach.org/socat
 Group:            Applications/Internet
@@ -41,6 +41,8 @@ rm -rf %{buildroot}/*
 %{_mandir}/man1/*
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 2.0.0.b9-3
+-   Bump up release for openssl
 *   Fri Jul 24 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 2.0.0.b9-2
 -   Add no depreciated option
 *   Wed Sep 19 2018 Srinidhi Rao <srinidhir@vmware.com> 2.0.0.b9-1

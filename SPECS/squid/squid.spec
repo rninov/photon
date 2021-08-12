@@ -1,11 +1,12 @@
 Summary:        Caching and forwarding HTTP web proxy
 Name:           squid
 Version:        4.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-or-later
 URL:            http://www.squid-cache.org
 Source0:        http://www.squid-cache.org/Versions/v4/%{name}-%{version}.tar.xz
 %define sha1 squid=4ddc098b5f7c276d19134c7c3b247cdb51d1c88d
+Patch0:         0001-openssl-3.0.0-support.patch
 Source1:        squid.sysconfig
 Source2:        squid.pam
 
@@ -56,6 +57,7 @@ lookup program (dnsserver), a program for retrieving FTP data
 
 %prep
 %setup -q
+%patch0 -p1
 
 %define _confdir %{_sysconfdir}
 %define _squiddatadir /usr/share/squid
@@ -202,6 +204,8 @@ done
 %systemd_postun_with_restart squid.service
 
 %changelog
+* Thu Jul 22 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 4.16-2
+- Openssl 3.0.0 compatibility
 * Mon Jul 19 2021 Susant Sahani <ssahani@vmware.com> 4.16-1
 - Version update and fix CVE-2021-31806, CVE-2021-33620,
 - CVE-2021-28651, CVE-2021-28662, CVE-2021-31807, CVE-2021-28652,

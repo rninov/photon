@@ -1,7 +1,7 @@
 Summary:        HA monitor built upon LVS, VRRP and services poller
 Name:           keepalived
 Version:        2.1.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPL
 URL:            http://www.keepalived.org/
 Group:          Applications/System
@@ -85,6 +85,8 @@ fi
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 2.1.5-3
+-   Bump up release for openssl
 *   Tue Sep 29 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 2.1.5-2
 -   openssl 1.1.1
 *   Fri Jul 24 2020 Gerrit Photon <photon-checkins@vmware.com> 2.1.5-1

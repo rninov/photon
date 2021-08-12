@@ -4,7 +4,7 @@
 Summary:        Usermode tools for VmWare virts
 Name:           open-vm-tools
 Version:        11.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        LGPLv2+
 URL:            https://github.com/vmware/open-vm-tools
 Group:          Applications/System
@@ -159,6 +159,8 @@ fi
 %{_libdir}/%{name}/serviceDiscovery/scripts/get-listening-process-perf-metrics.sh
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 11.3.0-2
+-   Bump up release for openssl
 *   Tue Jun 22 2021 Shreenidhi Shedi <sshedi@vmware.com> 11.3.0-1
 -   Upgrade to version 11.3.0
 *   Sat Jan 16 2021 Shreenidhi Shedi <sshedi@vmware.com> 11.2.5-1

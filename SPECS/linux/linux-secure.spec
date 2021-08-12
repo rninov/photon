@@ -11,7 +11,7 @@
 Summary:        Kernel
 Name:           linux-secure
 Version:        5.10.46
-Release:        2%{?kat_build:.kat}%{?dist}
+Release:        3%{?kat_build:.kat}%{?dist}
 License:        GPLv2
 URL:            http://www.kernel.org/
 Group:          System Environment/Kernel
@@ -307,6 +307,8 @@ ln -sf linux-%{uname_r}.cfg /boot/photon.cfg
 /usr/src/linux-headers-%{uname_r}
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 5.10.46-3
+-   Bump up release for openssl
 *   Thu Jul 15 2021 Him Kalyan Bordoloi <@vmware.com> 5.10.46-2
 -   Fix for CVE-2021-33909
 *   Mon Jun 28 2021 Sharan Turlapati <sturlapati@vmware.com> 5.10.46-1

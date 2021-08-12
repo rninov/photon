@@ -1,7 +1,7 @@
 Summary:    Multi-format archive and compression library
 Name:       libarchive
 Version:    3.4.3
-Release:    3%{?dist}
+Release:    4%{?dist}
 License:    BSD 2-Clause License
 URL:        http://www.libarchive.org/
 Group:      System Environment/Development
@@ -58,6 +58,8 @@ make %{?_smp_mflags} check
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 3.4.3-4
+-   Bump up release for openssl
 *   Tue Sep 22 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 3.4.3-3
 -   Make libarchive compatible for openssl-1.1.1
 *   Tue Sep 08 2020 Ankit Jain <ankitja@vmware.com> 3.4.3-2

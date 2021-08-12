@@ -1,17 +1,17 @@
 Summary:        Commit RPMs to an OSTree repository
 Name:           rpm-ostree
-Version:        2020.5
-Release:        6%{?dist}
+Version:        2021.7
+Release:        1%{?dist}
 License:        LGPLv2+
 URL:            https://github.com/projectatomic/rpm-ostree
 Vendor:         VMware, Inc.
 Distribution:   Photon
 Source0:        https://github.com/projectatomic/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
-%define sha1    rpm-ostree=42f76f192b64adb432abd8b1c2a7897e91fa835b
-Source1:        libglnx-5ef78bb.tar.gz
-%define sha1    libglnx=5acb68bdfe9dd9dc9f6c91a34c22fe5693631a7b
-Source2:        libdnf-c87ff63.tar.gz
-%define sha1    libdnf=58c9ebeeabe84ea6b263b1460e3ecb41e29d04c3
+%define sha1    rpm-ostree=712689e5156f90f66c9f57d6952acd93abd0d70b
+Source1:        libglnx-b7a2d4d.tar.gz
+%define sha1    libglnx=6e7090b70b45dc2e5c1b9826f4933531c968436a
+Source2:        libdnf-2ddebd2.tar.gz
+%define sha1    libdnf=a80fad38520417370297090a7363bdaec407b51d
 Source3:        mk-ostree-host.sh
 Source4:        function.inc
 Source5:        mkostreerepo
@@ -126,12 +126,15 @@ install -p -m 755 -D %{SOURCE5} %{buildroot}%{_bindir}/rpm-ostree-server
 %{_datadir}/dbus-1/system-services/*
 %config(noreplace) %{_sysconfdir}/rpm-ostreed.conf
 %{_libdir}/systemd/system/rpm-ostreed-automatic.timer
+%{_libdir}/systemd/system/rpm-ostree-countme.timer
 %{_datadir}/bash-completion/completions/rpm-ostree
 %{_datadir}/dbus-1/interfaces/org.projectatomic.rpmostree1.xml
 %{_datadir}/polkit-1/actions/org.projectatomic.rpmostree1.policy
 %{_mandir}/man1/rpm-ostree.1.gz
 %{_mandir}/man5/rpm-ostreed*
 %{_mandir}/man8/rpm-ostreed*
+%{_mandir}/man8/rpm-ostree-countme.service.8.gz
+%{_mandir}/man8/rpm-ostree-countme.timer.8.gz
 
 %files devel
 %{_libdir}/lib*.so
@@ -148,6 +151,8 @@ install -p -m 755 -D %{SOURCE5} %{buildroot}%{_bindir}/rpm-ostree-server
 %{_bindir}/rpm-ostree-server/mkostreerepo
 
 %changelog
+*   Mon Jul 12 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 2021.7-1
+-   openssl 3.0.0 compatibility
 *   Fri Jun 11 2021 Oliver Kurth <okurth@vmware.com> 2020.5-6
 -   build with libsolv 0.7.19
 *   Mon Jan 11 2021 Ankit Jain <ankitja@vmware.com> 2020.5-5

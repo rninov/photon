@@ -1,7 +1,7 @@
 Summary:        Very secure and very small FTP daemon.
 Name:           vsftpd
 Version:        3.0.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        GPLv2 with exceptions
 URL:            https://security.appspot.com/vsftpd.html
 Group:          System Environment/Daemons
@@ -85,6 +85,8 @@ fi
 %{_datadir}/*
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 3.0.3-7
+-   Bump up release for openssl
 *   Tue Aug 04 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 3.0.3-6
 -   Fix openssl-1.1.1 compatibility issue
 *   Fri Sep 21 2018 Alexey Makhalov <amakhalov@vmware.com> 3.0.3-5

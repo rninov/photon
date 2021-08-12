@@ -2,7 +2,7 @@
 Summary:        Open vSwitch daemon/database/utilities
 Name:           openvswitch
 Version:        2.14.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        ASL 2.0 and LGPLv2+
 URL:            http://www.openvswitch.org/
 Group:          System Environment/Daemons
@@ -149,6 +149,8 @@ make -k check |& tee %{_specdir}/%{name}-check-log || %{nocheck}
 %{_mandir}/man7/ovs-actions.7.gz
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 2.14.0-6
+-   Bump up release for openssl
 *   Thu Apr 01 2021 Dweep Advani <dadvani@vmware.com> 2.14.0-5
 -   Patched for CVE-2020-27827
 *   Mon Mar 01 2021 Dweep Advani <dadvani@vmware.com> 2.14.0-4

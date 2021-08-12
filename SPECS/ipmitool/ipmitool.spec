@@ -2,7 +2,7 @@
 Summary:        ipmitool - Utility for IPMI control
 Name:           ipmitool
 Version:        1.8.18
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        BSD
 
 Group:          System Environment/Utilities
@@ -70,6 +70,8 @@ make %{?_smp_mflags} check
 %doc %{_datadir}/doc/ipmitool
 
 %changelog
+*   Wed Aug 04 2021 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.8.18-6
+-   Bump up release for openssl
 *   Thu Jan 14 2021 Alexey Makhalov <amakhalov@vmware.com> 1.8.18-5
 -   GCC-10 support.
 *   Fri Jul 24 2020 Satya Naga Vasamsetty <svasamsetty@vmware.com> 1.8.18-4
